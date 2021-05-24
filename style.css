@@ -1,14 +1,27 @@
+body {
+  display: flex;
+}
+
 #container {
-  background-color: grey;
   height: 500px;
   width: 500px;
   display: grid;
+  border: 5px solid black;
   grid-template-columns: auto;
   grid-template-rows: 25% 100px auto;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr);
 }
 
-.grid-item {
-  border: 1px solid black;
+button#reset-board {
+  height: 50px;
+  font-size: 18px;
+  margin: 50px 0 0 50px;
 }
+/* .grid-item {
+  border: 1px solid black;
+} */
+
+/* div:hover {
+  background-color: red;
+} */
