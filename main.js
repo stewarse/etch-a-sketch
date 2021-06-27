@@ -17,17 +17,61 @@ createGrid();
 
 function setColor( e ) {
     //console.log(e.target.style)
+    let rgb = e.target.style.background
+
     if(this.style.background === ''){
         let color = randomColor();
-        e.target.style.background = `hsl(${color}, 80%, 90%)`
-        //console.log('true')
+        e.target.style.background = `hsl(${color}, 80%, 90%)`;
+        console.log(e.target.style.background)
     } else {
         //Determine the new color at 80% opacity
+        console.log(reduceLightness(rgb))
+        e.target.style.background = reduceLightness(rgb)
 
     }
-
 //Update code to adjust the lightness of the color (requires a new function to determine new color via rgb values?)
     // console.log(e)
+}
+
+// const rgbIntArray = rgb.replace(/ /g, '').slice(4, -1).split(',')
+function reduceLightness(rgb) {
+    const rgbIntArray = rgb.replace(/ /g, '').slice(4, -1).split(',')
+    
+    let lowest = rgbIntArray[0];
+    let lowestIndex = 0
+    let highest = rgbIntArray[0];
+    let highestIndex = 0
+    for(let i = 1; i < rgbIntArray.length; i++){
+        if (rgbIntArray[i] < lowest) {
+            lowest = rgbIntArray[i]
+            lowestIndex = i
+        }
+        if (rgbIntArray[i] > highest){
+            highest = rgbIntArray[i]
+            highestIndex = i
+        }
+    }
+
+    let middleIndex = rgbIntArray.length - lowestIndex - highestIndex
+    let middle = rgbIntArray[middleIndex]
+
+
+    console.log(highest);
+    console.log(middle);
+    console.log(lowest);
+
+    const newHighest = Math.round( highest - Math.min(highest, 25.5))
+    const deltaFraction = (highest - newHighest) / highest;
+    const newMiddle = middle - (middle * deltaFraction)
+    const newLowest = lowest - (lowest * deltaFraction)
+
+    const returnArray = []
+    
+    returnArray[lowestIndex] = newLowest
+    returnArray[middleIndex] = newMiddle
+    returnArray[highestIndex] = newHighest
+
+    return [`rgb(${returnArray.join()})`];
 }
 
 function createGrid(num = 16) {
