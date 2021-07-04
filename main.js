@@ -116,5 +116,12 @@ function randomColor() {
 }
 
 function getGridSize() {
-    return parseInt(prompt("Please enter the grid size?"));
+    let gridSize = parseInt(prompt("Please enter the grid size?"));
+
+    while (gridSize > 100 || gridSize < 1) {
+        gridSize = parseInt(prompt("Grid Size must be between 1 & 100"));
+    } 
+
+    return gridSize;
 }
+
